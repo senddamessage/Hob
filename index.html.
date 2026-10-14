@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#050505" />
+<title>For You ❤️</title>
+<style>
+  :root{--red:#ff3158;--pink:#ff8ca6;--glass:rgba(255,255,255,.055)}
+  *{box-sizing:border-box}
+  body{margin:0;background:#050505;color:#fff;font-family:Tahoma,Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+  .hearts{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .heart{position:absolute;bottom:-50px;color:var(--red);opacity:0;animation:floatUp linear infinite;text-shadow:0 0 14px #ff174477}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(0deg) scale(.75);opacity:0}10%{opacity:.75}90%{opacity:.5}100%{transform:translateY(-115vh) rotate(28deg) scale(1.25);opacity:0}}
+  main{position:relative;z-index:1;width:min(760px,92vw);margin:0 auto;padding:34px 0 50px}
+  .screen{display:none;animation:fade .65s ease both}.screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .center{text-align:center}
+  .eyebrow{color:var(--pink);letter-spacing:2px;font-size:.9rem}
+  h1{font-size:clamp(1.8rem,6vw,3rem);margin:12px 0;color:#fff;text-shadow:0 0 20px #ff315844}
+  .sub{color:#ffc0ce;line-height:1.9}
+  .panel{border:1px solid #ff315866;background:linear-gradient(145deg,rgba(255,49,88,.09),rgba(255,255,255,.025));box-shadow:0 0 28px #ff31581c,inset 0 0 22px #ff31580a;border-radius:24px;padding:24px;margin:22px auto}
+  input{width:100%;max-width:340px;background:rgba(8,8,10,.9);border:1px solid #ff7894;border-radius:16px;padding:16px;color:#fff;font-size:1.05rem;text-align:center;outline:none;box-shadow:inset 0 2px 12px #0008;transition:border-color .25s,box-shadow .25s}
+  input::placeholder{color:#b9a0a7}
+  input:focus{border-color:#ffb5c5;box-shadow:0 0 0 4px #ff31582b,0 0 24px #ff315833}
+  button{position:relative;isolation:isolate;overflow:hidden;border:1px solid #ffb0c0;border-radius:999px;padding:14px 34px;margin-top:16px;background:linear-gradient(120deg,#b80f36 0%,#ff416b 48%,#ff91aa 100%);color:#fff;font-weight:bold;font-size:1rem;letter-spacing:.3px;cursor:pointer;box-shadow:0 8px 26px #ff315844,inset 0 1px 0 #ffffff55;transition:transform .22s,box-shadow .22s,filter .22s}
+  button::before{content:"";position:absolute;inset:1px;border-radius:inherit;border:1px solid #ffffff35;pointer-events:none}
+  button:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 12px 32px #ff315866,inset 0 1px 0 #ffffff66}
+  button:active{transform:scale(.98)}
+  .open-button{border:0;border-radius:0;padding:0;margin-top:16px;background:transparent;color:#fff;font-weight:normal;font-size:1.05rem;letter-spacing:0;cursor:pointer;box-shadow:none;min-width:0}
+  .open-button::before{display:none}
+  .open-button:hover{transform:none;filter:none;box-shadow:none;text-decoration:underline}
+  .open-button:active{transform:none}
+  .error{color:#ff8ca6;min-height:1.4em;margin:10px 0 0}
+  .counter-title{font-size:1.2rem;color:#ffd4de;margin:0 0 14px}
+  .counter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;direction:ltr}
+  .unit{padding:16px 6px;border-radius:15px;background:rgba(0,0,0,.45);border:1px solid #ff547466;box-shadow:inset 0 0 18px #ff31580b}
+  .num{display:block;color:#fff;font-size:clamp(1.45rem,5vw,2.3rem);font-weight:bold;font-variant-numeric:tabular-nums}
+  .label{display:block;color:#ff9caf;font-size:.84rem;margin-top:5px}
+  .love-line{font-size:clamp(1.1rem,4vw,1.45rem);line-height:1.9;color:#ffd0da;text-align:center;margin:22px 0}
+  .memory{margin:25px 0 32px;text-align:center}
+  .memory img{display:block;width:min(100%,520px);max-height:560px;object-fit:contain;margin:0 auto;padding:7px;border:1px solid #ff6683;border-radius:19px;background:#10080a;box-shadow:0 0 25px #ff315822}
+  .caption{font-size:1.05rem;line-height:2;color:#ffe3e9;margin:15px auto 0;max-width:650px}
+  .next-wrap{text-align:center;padding:8px 0 22px}
+  .video{width:100%;max-height:75vh;border:1px solid #ff6683;border-radius:18px;background:#000;box-shadow:0 0 26px #ff315822}
+  .letter{white-space:pre-line;text-align:right;line-height:2.15;color:#ffe6eb;font-size:1.02rem;border-right:2px solid #ff5474;padding:4px 16px 4px 4px;margin-top:22px}
+  .signature{text-align:center;color:#ff9caf;font-size:1.25rem;line-height:2;margin-top:25px}
+  .tiny{font-size:.82rem;color:#a9a0a3;margin-top:12px;line-height:1.7}
+  @media(min-width:560px){.counter{grid-template-columns:repeat(6,minmax(0,1fr))}.panel{padding:28px}}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+<main>
+  <section id="passwordScreen" class="screen active center">
+    <p class="eyebrow">A LITTLE PLACE MADE FOR YOU</p>
+    <h1>Enter password ❤️</h1>
+    <div class="panel">
+      <p class="sub">الباسورد تاريخ ارتباطنا ...</p>
+      <form id="passwordForm">
+        <input id="password" type="password" placeholder="DD/MM/YYYY" aria-label="Password" autocomplete="off" />
+        <br><button class="open-button" type="submit">open</button>
+        <p id="error" class="error" role="alert"></p>
+      </form>
+    </div>
+    <p class="tiny">A little memory, made with love ✨</p>
+  </section>
+
+  <section id="memoriesScreen" class="screen">
+    <header class="center">
+      <p class="eyebrow">EVERY SECOND WITH YOU MATTERS</p>
+      <h1>Our Time Together ❤️</h1>
+      <p class="sub">Since 22/10/2022</p>
+    </header>
+    <div class="panel center">
+      <div class="counter" aria-live="off">
+        <div class="unit"><span class="num" id="years">0</span><span class="label">Years</span></div>
+        <div class="unit"><span class="num" id="months">0</span><span class="label">Months</span></div>
+        <div class="unit"><span class="num" id="days">0</span><span class="label">Days</span></div>
+        <div class="unit"><span class="num" id="hours">0</span><span class="label">Hours</span></div>
+        <div class="unit"><span class="num" id="minutes">0</span><span class="label">Minutes</span></div>
+        <div class="unit"><span class="num" id="seconds">0</span><span class="label">Seconds</span></div>
+      </div>
+      <p class="love-line">Every second with you is special. ❤️<br>And our story is still being written...</p>
+    </div>
+
+    <audio id="song" src="https://files.catbox.moe/3a3mje.mp3" preload="auto" playsinline></audio>
+
+    <div class="memory">
+      <img src="https://files.catbox.moe/anq7vj.jpg" alt="ذكرياتنا الحلوة" loading="lazy">
+      <p class="caption">انا عمري ما انسا ايامي الحلوه الي بعيشها معاك يا حبيبي 🥹❤️</p>
+    </div>
+    <div class="memory">
+      <img src="https://files.catbox.moe/jp224f.jpg" alt="أجمل يوم" loading="lazy">
+      <p class="caption">عمري ما انسا اليوم ده كان اجمل يوم،😂❤️</p>
+    </div>
+    <div class="memory">
+      <img src="https://files.catbox.moe/dh9vww.jpg" alt="وقت بنقضيه سوا" loading="lazy">
+      <p class="caption">بنفضل مع بعض ب الساعات وعمري ما عرفت اشبع من وجودك جمبي،😚❤️</p>
+    </div>
+    <div class="memory">
+      <img src="https://files.catbox.moe/ggeggi.jpg" alt="الأمان" loading="lazy">
+      <p class="caption">ربنا يديمك ليا الامان الي بحس بيه ,🫂❤️</p>
+    </div>
+    <div class="next-wrap"><button id="nextButton" type="button">Next ❤️</button></div>
+  </section>
+
+  <section id="finalScreen" class="screen">
+    <div class="center">
+      <p class="eyebrow">ONE LAST THING…</p>
+      <h1>I Love U ❤️</h1>
+    </div>
+    <video id="finalVideo" class="video" src="https://files.catbox.moe/tkc91i.mp4" controls playsinline preload="metadata"></video>
+    <div class="letter">عايزه اقولك اني بحبك اوي اوييي بحسك دايما اغلي حاجه ف حياتي ومحدش يقدر ياخد مكانك عندي وماحدش يقدر اصلا انا دايما بحس اني مليش غيرك ومهما زعلت منك مكنتك في قلبي هتفضل زي ما هي انت دلوقتي بقيت حاجه اساسيه ف حياتي ومقدرش اعدي يومي من غيرك بجد انا بحبك اوييي يا حبيب أيامي وبعشقك وربنا ميحرمنيش منك ابدا ينور عيني انت مش بس حبيبي دا انت حياتي كلها اصلا بجد بقيت اخاف اخسرك وبقيت بعمل كل حاجه علشان نفضل سوا انت مهم اوي بالنسبالي اوعي تفتكر اني هتخلي عنك لا النهارده ولا بكره ولا ف اي يوم و م فارق معايا اخسر مين دلوقتي ولا بعدين طول ما أنت جمبي ومعايا انا كده لسه مخسرتش حد أنت بكل اللي ف حياتي حبيبي وروحي وكل حاجه ليا انت الوحيد اللي تستاهل ان احمد ربنا عليه علطول ي حبيب ايامي ربنا يجعلك من نصيبي ياقلبيي ي اجمل 4 سنين في حياتي 🏡❤️❤️❤️❤️❤️.</div>
+    <p class="signature">I Love U ,🫂❤️❤️
+</main>
+<script>
+  // Floating hearts decoration
+  const heartLayer = document.getElementById('hearts');
+  for(let i=0;i<28;i++){
+    const h=document.createElement('span'); h.className='heart'; h.textContent=['♥','♡','❤'][i%3];
+    h.style.left=(Math.random()*100)+'%'; h.style.fontSize=(12+Math.random()*23)+'px';
+    h.style.animationDuration=(9+Math.random()*13)+'s'; h.style.animationDelay=(-Math.random()*20)+'s';
+    heartLayer.appendChild(h);
+  }
+  const passwordForm=document.getElementById('passwordForm');
+  const passwordInput=document.getElementById('password');
+  const error=document.getElementById('error');
+  const song=document.getElementById('song');
+  const finalVideo=document.getElementById('finalVideo');
+  const startDate=new Date(2022,9,22,0,0,0); // October is month 9 in JavaScript
+  function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+  function updateCounter(){
+    const now=new Date(); let years=now.getFullYear()-startDate.getFullYear();
+    let anniversary=new Date(startDate); anniversary.setFullYear(startDate.getFullYear()+years);
+    if(anniversary>now) years--;
+    const yearAnchor=new Date(startDate); yearAnchor.setFullYear(startDate.getFullYear()+years);
+    let months=(now.getFullYear()-yearAnchor.getFullYear())*12+(now.getMonth()-yearAnchor.getMonth());
+    let monthAnchor=new Date(yearAnchor); monthAnchor.setMonth(monthAnchor.getMonth()+months);
+    if(monthAnchor>now) months--;
+    monthAnchor=new Date(yearAnchor); monthAnchor.setMonth(monthAnchor.getMonth()+months);
+    let remainder=Math.max(0,Math.floor((now-monthAnchor)/1000));
+    const days=Math.floor(remainder/86400); remainder%=86400;
+    const hours=Math.floor(remainder/3600); remainder%=3600;
+    const minutes=Math.floor(remainder/60); const seconds=remainder%60;
+    for(const [id,val] of Object.entries({years,months,days,hours,minutes,seconds}))document.getElementById(id).textContent=String(val).padStart(2,'0');
+  }
+  updateCounter(); setInterval(updateCounter,1000);
+  passwordForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(passwordInput.value.trim()!=='22/10/2022'){error.textContent='الباسورد مش صح، جربي تاني ❤️';passwordInput.focus();return;}
+    error.textContent=''; showScreen('memoriesScreen');
+    // Browsers may block autoplay until a user gesture. The password submit is that gesture in many browsers.
+    try{song.currentTime=13; await song.play();}catch(err){/* The browser may require a tap on the page to start audio. */}
+  });
+  document.getElementById('nextButton').addEventListener('click',async()=>{
+    song.pause(); song.currentTime=13;
+    showScreen('finalScreen');
+    try{await finalVideo.play();}catch(err){/* If autoplay is blocked, the visible video controls let the user start it. */}
+  });
+  // If playback becomes possible after a user tap, keep the requested start position.
+  song.addEventListener('loadedmetadata',()=>{if(song.currentTime<13)song.currentTime=13;});
+</script>
+</body>
+</html>
